@@ -18,6 +18,7 @@ namespace EpicManifestParser.Objects
 		public int AppId { get; private set; }
 		public string AppName { get; private set; }
 		public string BuildVersion { get; private set; }
+		public string BuildId { get; private set; }
 		public Version Version { get; }
 		public int CL { get; }
 		public string LaunchExe { get; private set; }
@@ -371,8 +372,8 @@ namespace EpicManifestParser.Objects
 				PrereqArgs = manifest.ReadFString();
 			}
 
-			if (dataVersion >= EManifestMetaVersion.SerialisesBuildId)
-				BuildVersion = manifest.ReadFString();
+			if (dataVersion > EManifestMetaVersion.SerialisesBuildId)
+				BuildId = manifest.ReadFString();
 
 			manifest.Seek(startPos + dataSize, SeekOrigin.Begin);
 			startPos = (int)manifest.Position;
